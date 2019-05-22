@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
 	public KeyCode m_attack = KeyCode.Return;
 	public int m_attackButton = 0;
 
+	public bool m_invert = true;
+
 	[Header("Multipliers")]
 	public float m_moveMulti;
 	public float m_turnMulti;
@@ -91,7 +93,8 @@ public class Player : MonoBehaviour
 		m_rotation = Mathf.LerpUnclamped(0, m_maxRot, m_turn);
 		m_rotation = Mathf.Clamp(m_rotation, -m_maxRot, m_maxRot);
 
-		m_rotation *= invert;
+		if (m_invert)
+			m_rotation *= invert;
 
 		transform.Rotate(Vector3.up * m_rotation * m_turnMulti);
 
@@ -116,7 +119,6 @@ public class Player : MonoBehaviour
 					hit.GetComponent<EnemyBehaviour>().TakeDamage(m_attackDamage);
 				}
 			}
-
 		}
 	}
 }
