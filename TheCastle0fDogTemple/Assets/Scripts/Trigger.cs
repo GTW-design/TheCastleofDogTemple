@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Trigger : MonoBehaviour {
-	public TriggerTarget m_target;
+	public UnityEvent m_OnActivate;
+	public UnityEvent m_OnDeactivate;
 
 	public bool m_isSingleUse = false;
 
@@ -15,11 +17,13 @@ public class Trigger : MonoBehaviour {
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (!m_target)
+		if (m_OnActivate == null)
 			return;
 
 		if (other.tag != "Player")
 			return;
+
+		m_OnActivate.Invoke();
 	}
 
 	private void OnTriggerExit(Collider other)
@@ -27,10 +31,12 @@ public class Trigger : MonoBehaviour {
 		if (m_isSingleUse)
 			return;
 
-		if (!m_target)
+		if (m_OnDeactivate == null)
 			return;
 
 		if (other.tag != "Player")
 			return;
+
+		m_OnDeactivate.Invoke();
 	}
 }
