@@ -29,8 +29,10 @@ public class Player : MonoBehaviour
 	public float maxSpeed;
 	public float maxRot;
 
-	[Header("Attack Range")]
+	[Header("Attack")]
 	public float attackRange;
+	public string enemyTag;
+	public int attackDamage;
 
 
 	// Use this for initialization
@@ -103,9 +105,15 @@ public class Player : MonoBehaviour
 		if (Input.GetKeyDown(attack) || Input.GetMouseButtonDown(attackButton))
 		{
 			RaycastHit rayHit;
+
 			if (Physics.Raycast(transform.position, transform.forward, out rayHit, 5.0f))
 			{
 				// DO STUFF
+				var hit = rayHit.collider.gameObject;
+				if (hit.CompareTag(enemyTag))
+				{
+					hit.GetComponent<EnemyBehaviour>().TakeDamage(attackDamage);
+				}
 			}
 
 		}
