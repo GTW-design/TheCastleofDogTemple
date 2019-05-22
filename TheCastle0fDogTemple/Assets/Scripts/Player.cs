@@ -6,113 +6,114 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
-	private CharacterController charControl;
-	private float movement;
-	private float rotation;
-	private float fwd = 0;
-	private float turn = 0;
+	private CharacterController m_charControl;
+	private float m_movement;
+	private float m_rotation;
+	private float m_fwd = 0;
+	private float m_turn = 0;
 
 	[Header("Inputs")]
-	public KeyCode forwards;
-	public KeyCode backwards;
-	public KeyCode left;
-	public KeyCode right;
+	public KeyCode m_forwards;
+	public KeyCode m_backwards;
+	public KeyCode m_left;
+	public KeyCode m_right;
 
-	public KeyCode attack;
-	public int attackButton;
+	public KeyCode m_attack;
+	public int m_attackButton;
 
 	[Header("Multipliers")]
-	public float moveMulti;
-	public float turnMulti;
+	public float m_moveMulti;
+	public float m_turnMulti;
 
 	[Header("Maximums")]
-	public float maxSpeed;
-	public float maxRot;
+	public float m_maxSpeed;
+	public float m_maxRot;
 
 	[Header("Attack")]
-	public float attackRange;
-	public string enemyTag;
-	public int attackDamage;
+	public string m_enemyTag;
+	public Transform m_attackOrigin;
+	public float m_attackRange;
+	public int m_attackDamage;
 
 
 	// Use this for initialization
 	void Start()
 	{
-		charControl = gameObject.GetComponent<CharacterController>();
+		m_charControl = gameObject.GetComponent<CharacterController>();
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
 		// Rotate Input
-		if (Input.GetKey(left))
+		if (Input.GetKey(m_left))
 		{
-			turn -= Time.deltaTime;
+			m_turn -= Time.deltaTime;
 		}
-		else if (Input.GetKey(right))
+		else if (Input.GetKey(m_right))
 		{
-			turn += Time.deltaTime;
+			m_turn += Time.deltaTime;
 		}
 		else
 		{
-			turn *= 0.80f;
-			if (Mathf.Abs(turn) < 0.05f)
-				turn = 0;
+			m_turn *= 0.80f;
+			if (Mathf.Abs(m_turn) < 0.05f)
+				m_turn = 0;
 		}
-		turn = Mathf.Clamp(turn, -1, 1);
+		m_turn = Mathf.Clamp(m_turn, -1, 1);
 
 
 		// Movement Input
-		if (Input.GetKey(forwards))
+		if (Input.GetKey(m_forwards))
 		{
-			fwd += Time.deltaTime;
+			m_fwd += Time.deltaTime;
 		}
-		else if (Input.GetKey(backwards))
+		else if (Input.GetKey(m_backwards))
 		{
-			fwd -= Time.deltaTime;
+			m_fwd -= Time.deltaTime;
 		}
 		else
 		{
-			fwd *= 0.90f;
-			if (Mathf.Abs(fwd) < 0.05f)
-				fwd = 0;
+			m_fwd *= 0.90f;
+			if (Mathf.Abs(m_fwd) < 0.05f)
+				m_fwd = 0;
 		}
-		fwd = Mathf.Clamp(fwd, -1, 1);
+		m_fwd = Mathf.Clamp(m_fwd, -1, 1);
 
 		// ROTATE
 
 		// Reverse rotation if going backwards
 		int invert = 1;
-		if (movement < 0)
+		if (m_movement < 0)
 			invert = -1;
 
 
-		rotation = Mathf.LerpUnclamped(0, maxRot, turn);
-		rotation = Mathf.Clamp(rotation, -maxRot, maxRot);
+		m_rotation = Mathf.LerpUnclamped(0, m_maxRot, m_turn);
+		m_rotation = Mathf.Clamp(m_rotation, -m_maxRot, m_maxRot);
 
-		rotation *= invert;
+		m_rotation *= invert;
 
-		transform.Rotate(Vector3.up * rotation * turnMulti);
+		transform.Rotate(Vector3.up * m_rotation * m_turnMulti);
 
 		// MOVE
-		movement = Mathf.LerpUnclamped(0, maxSpeed, fwd);
-		movement = Mathf.Clamp(movement, -maxSpeed, maxSpeed);
+		m_movement = Mathf.LerpUnclamped(0, m_maxSpeed, m_fwd);
+		m_movement = Mathf.Clamp(m_movement, -m_maxSpeed, m_maxSpeed);
 
-		charControl.SimpleMove(transform.forward * movement * moveMulti);
+		m_charControl.SimpleMove(transform.forward * m_movement * m_moveMulti);
 
 
 		// ATTACK STUFF
-		if (Input.GetKeyDown(attack) || Input.GetMouseButtonDown(attackButton))
+		if (Input.GetKeyDown(m_attack) || Input.GetMouseButtonDown(m_attackButton))
 		{
 			RaycastHit rayHit;
 
-			if (Physics.Raycast(transform.position, transform.forward, out rayHit, 5.0f))
+			if (Physics.Raycast(m_attackOrigin.position, transform.forward, out rayHit, 5.0f))
 			{
 				// DO STUFF
 				var hit = rayHit.collider.gameObject;
-				if (hit.CompareTag(enemyTag))
+				if (hit.CompareTag(m_enemyTag))
 				{
-					hit.GetComponent<EnemyBehaviour>().TakeDamage(attackDamage);
+					hit.GetComponent<EnemyBehaviour>().TakeDamage(m_attackDamage);
 				}
 			}
 
