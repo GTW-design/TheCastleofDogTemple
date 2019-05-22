@@ -13,13 +13,13 @@ public class Player : MonoBehaviour
 	private float m_turn = 0;
 
 	[Header("Inputs")]
-	public KeyCode m_forwards;
-	public KeyCode m_backwards;
-	public KeyCode m_left;
-	public KeyCode m_right;
+	public KeyCode m_forwards = KeyCode.W;
+	public KeyCode m_backwards = KeyCode.S;
+	public KeyCode m_left = KeyCode.A;
+	public KeyCode m_right = KeyCode.D;
 
-	public KeyCode m_attack;
-	public int m_attackButton;
+	public KeyCode m_attack = KeyCode.Return;
+	public int m_attackButton = 0;
 
 	[Header("Multipliers")]
 	public float m_moveMulti;
