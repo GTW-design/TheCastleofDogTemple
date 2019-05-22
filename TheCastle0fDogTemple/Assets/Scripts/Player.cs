@@ -29,6 +29,9 @@ public class Player : MonoBehaviour
 	public float maxSpeed;
 	public float maxRot;
 
+	[Header("Attack Range")]
+	public float attackRange;
+
 
 	// Use this for initialization
 	void Start()
@@ -95,5 +98,16 @@ public class Player : MonoBehaviour
 
 		charControl.SimpleMove(transform.forward * movement * moveMulti);
 
+
+		// ATTACK STUFF
+		if (Input.GetKeyDown(attack) || Input.GetMouseButtonDown(attackButton))
+		{
+			RaycastHit rayHit;
+			if (Physics.Raycast(transform.position, transform.forward, out rayHit, 5.0f))
+			{
+				// DO STUFF
+			}
+
+		}
 	}
 }
