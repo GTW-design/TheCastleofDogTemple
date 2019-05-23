@@ -60,4 +60,9 @@ public class Hud : MonoBehaviour
     {
         m_scoreCount += score;
     }
+
+    public void DmgScore(int score)
+    {
+        m_scoreCount -= score;
+    }
 }

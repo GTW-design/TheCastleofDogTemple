@@ -31,7 +31,7 @@ public class TrapHaz : MonoBehaviour
             player.m_slowdown = true;
             if(theTime <= 0)
             {
-                hud.AddScore(-m_dmgScore);
+                hud.DmgScore(m_dmgScore);
                 theTime = m_ScoreTimer;
             }
         }
