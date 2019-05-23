@@ -27,6 +27,8 @@ public class Player : MonoBehaviour
 	public float m_moveMulti;
 	public float m_turnMulti;
 
+    public bool m_slowdown = false;
+
 	[Header("Maximums")]
 	public float m_maxSpeed;
 	public float m_maxRot;
@@ -36,6 +38,7 @@ public class Player : MonoBehaviour
 	public Transform m_attackOrigin;
 	public float m_attackRange;
 	public int m_attackDamage;
+
 
 
 	// Use this for initialization
