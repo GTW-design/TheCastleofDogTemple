@@ -5205,7 +5205,7 @@ Prefab:
     - target: {fileID: 114961209807797230, guid: 9aa54f3e5b7dcbe41bebc4357b4c841d,
         type: 2}
       propertyPath: m_slowMulti
-      value: 1
+      value: 3.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9aa54f3e5b7dcbe41bebc4357b4c841d, type: 2}
