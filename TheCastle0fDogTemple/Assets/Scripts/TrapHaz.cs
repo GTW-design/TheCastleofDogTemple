@@ -12,7 +12,8 @@ public class TrapHaz : MonoBehaviour
     private Player player;
     private float theTime;
 
-    private bool inside;
+    private bool inside = false;
+	private bool inUse = false;
 
 	// Use this for initialization
 	void Start ()
@@ -24,6 +25,9 @@ public class TrapHaz : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+		if (!inUse)
+			return;
+
         theTime -= Time.deltaTime;
 
         if (inside == true)
@@ -40,7 +44,7 @@ public class TrapHaz : MonoBehaviour
             if (theTime <= 0)
             {
                 player.m_slowdown = false;
-
+				inUse = false;
             }
             
         }
@@ -53,7 +57,9 @@ public class TrapHaz : MonoBehaviour
         {
             inside = true;
             theTime = 0;
-        }
+			inUse = true;
+
+		}
     }
     private void OnTriggerExit(Collider other)
     {
