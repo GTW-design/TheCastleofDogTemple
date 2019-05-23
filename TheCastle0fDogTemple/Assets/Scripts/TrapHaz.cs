@@ -20,6 +20,7 @@ public class TrapHaz : MonoBehaviour
     {
         theTime = 0;
 		player = m_player.GetComponent<Player>();
+        hud = FindObjectOfType<Hud>();
 	}
 	
 	// Update is called once per frame

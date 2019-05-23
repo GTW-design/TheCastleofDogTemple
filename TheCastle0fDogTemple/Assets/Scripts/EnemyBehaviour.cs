@@ -32,17 +32,20 @@ public class EnemyBehaviour : MonoBehaviour
             Destroy(gameObject);
         }
 
-		// NAV
-		Vector3 currentPos = transform.position;
-		Vector3 targetPos = m_nodes[m_targetNodeIndex].position;
-		float distance = Vector3.SqrMagnitude(currentPos - targetPos);
+        // NAV
+        if (false)
+        {
+            Vector3 currentPos = transform.position;
+            Vector3 targetPos = m_nodes[m_targetNodeIndex].position;
+            float distance = Vector3.SqrMagnitude(currentPos - targetPos);
 
-		// IF at target node
-		if (distance <= 1.0f)
-		{
-			m_targetNodeIndex = 1 - m_targetNodeIndex;
-			m_navAgent.SetDestination(targetPos);
-		}
+            // IF at target node
+            if (distance <= 1.0f)
+            {
+                m_targetNodeIndex = 1 - m_targetNodeIndex;
+                m_navAgent.SetDestination(targetPos);
+            }
+        }
 	}
     
     public void TakeDamage(int damage)
