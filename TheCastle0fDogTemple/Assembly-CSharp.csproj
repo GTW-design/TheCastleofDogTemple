@@ -67,8 +67,9 @@
     <Compile Include="Assets\Scripts\Menu.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\SandSucker.cs" />
+    <Compile Include="Assets\Scripts\TrapHaz.cs" />
     <Compile Include="Assets\Scripts\Trigger.cs" />
-    <Compile Include="Assets\Scripts\TriggerTarget.cs" />
     <None Include="Assets\Textures\New Text Document.txt" />
     <None Include="Assets\Prefabs\New Text Document.txt" />
     <None Include="Assets\Materials\New Text Document.txt" />

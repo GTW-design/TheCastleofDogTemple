@@ -24,8 +24,13 @@ public class Player : MonoBehaviour
 	public bool m_invert = true;
 
 	[Header("Multipliers")]
+
+	[Range(1, 5)]
 	public float m_moveMulti;
+	[Range(1, 5)]
 	public float m_turnMulti;
+	[Range(1, 5)]
+	public float m_slowMulti;
 
     public bool m_slowdown = false;
 
@@ -101,11 +106,16 @@ public class Player : MonoBehaviour
 
 		transform.Rotate(Vector3.up * m_rotation * m_turnMulti);
 
+		// Check if slowed
+		float slowDown = 1.0f;
+		if (m_slowdown)
+			slowDown = m_slowMulti;
+
 		// MOVE
 		m_movement = Mathf.LerpUnclamped(0, m_maxSpeed, m_fwd);
 		m_movement = Mathf.Clamp(m_movement, -m_maxSpeed, m_maxSpeed);
 
-		m_charControl.SimpleMove(transform.forward * m_movement * m_moveMulti);
+		m_charControl.SimpleMove(transform.forward * m_movement * m_moveMulti / slowDown);
 
 
 		// ATTACK STUFF

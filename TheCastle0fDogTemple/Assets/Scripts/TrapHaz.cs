@@ -18,6 +18,7 @@ public class TrapHaz : MonoBehaviour
 	void Start ()
     {
         theTime = 0;
+		player = m_player.GetComponent<Player>();
 	}
 	
 	// Update is called once per frame
