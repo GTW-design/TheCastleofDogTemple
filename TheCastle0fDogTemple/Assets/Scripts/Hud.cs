@@ -18,6 +18,12 @@ public class Hud : MonoBehaviour
     public GameObject loseScreen;
     public AudioSource m_backgroundmusic;
 
+	[Header("HighScore Stuff")]
+	private HighScores m_highScores;
+	private bool m_hasName = false;
+	public GameObject m_InputGroup;
+	public InputField m_input;
+
 
 
 
@@ -25,8 +31,10 @@ public class Hud : MonoBehaviour
 	void Start ()
     {
         Timer = 0;
-        
-        m_backgroundmusic.Play();
+		m_highScores = GetComponent<HighScores>();
+
+
+		m_backgroundmusic.Play();
 	}
 	
 	// Update is called once per frame
@@ -68,13 +76,29 @@ public class Hud : MonoBehaviour
             m_Hud.SetActive(false);
             winScreen.SetActive(true);
             Time.timeScale = 0;
-        }
+
+			// Highscore Win Stuff
+
+			// Input Name for score
+			if (!m_hasName)
+			{
+				m_InputGroup.SetActive(true);
+			}
+			else
+			{
+				m_highScores.ShowHighScores();
+			}
+
+		}
         // checking to see if you lose 
         if (lose == true)
         {
             m_Hud.SetActive(false);
             loseScreen.SetActive(true);
             Time.timeScale = 0;
+
+			// Lose Stuff
+			m_highScores.ShowHighScores();
         }
 	}
 
@@ -106,4 +130,18 @@ public class Hud : MonoBehaviour
             win = true;
         }
     }
+
+	public void AddScore()
+	{
+		m_InputGroup.SetActive(false);
+
+		Score score;
+		score.name = m_input.text;
+		score.value = m_scoreCount;
+
+		m_highScores.AddScore(score);
+		m_highScores.WriteScores();
+
+		m_hasName = true;
+	}
 }

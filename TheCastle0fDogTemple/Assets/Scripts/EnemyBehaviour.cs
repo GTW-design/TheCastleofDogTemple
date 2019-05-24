@@ -16,6 +16,8 @@ public class EnemyBehaviour : MonoBehaviour
 	private NavMeshAgent m_navAgent;
 
     private Hud m_hud;
+
+	private Animator m_animator;
     
 
 	// Use this for initialization
@@ -25,6 +27,8 @@ public class EnemyBehaviour : MonoBehaviour
         m_navAgent = GetComponent<NavMeshAgent>();
 
         m_navAgent.SetDestination(m_nodes[m_targetNodeIndex].position);
+
+		m_animator = GetComponent<Animator>();
     }
 	
 	// Update is called once per frame
@@ -33,6 +37,8 @@ public class EnemyBehaviour : MonoBehaviour
         if (m_health <= 0)
         {
             m_hud.AddScore(m_addScore);
+			m_animator.ResetTrigger("isWalking");
+			m_animator.SetTrigger("isEnemyDead");
             Destroy(gameObject);
         }
 
@@ -43,8 +49,10 @@ public class EnemyBehaviour : MonoBehaviour
 		targetPos.y = 0;
 		float distance = Vector3.SqrMagnitude(currentPos - targetPos);
 
-        // IF at target node
-        if (distance <= 1.0f)
+		m_animator.SetTrigger("isWalking");
+
+		// IF at target node
+		if (distance <= 1.0f)
         {
             m_targetNodeIndex = 1 - m_targetNodeIndex;
             m_navAgent.SetDestination(m_nodes[m_targetNodeIndex].position);
@@ -56,5 +64,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         m_health -= damage;
         m_enemyhurt[Random.Range(0, m_enemyhurt.Length)].Play();
-    }
+		m_animator.ResetTrigger("isWalking");
+		m_animator.SetTrigger("isFlinchForward");
+	}
 }
