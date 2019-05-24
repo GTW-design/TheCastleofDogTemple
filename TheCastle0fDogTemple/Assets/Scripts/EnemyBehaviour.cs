@@ -35,14 +35,12 @@ public class EnemyBehaviour : MonoBehaviour
             Destroy(gameObject);
         }
 
-        // NAV
-        
-       
-        Vector3 currentPos = transform.position;
-        currentPos.y = 0;
-        Vector3 targetPos = m_nodes[m_targetNodeIndex].position;
-        targetPos.y = 0;
-        float distance = Vector3.SqrMagnitude(currentPos - targetPos);
+		// NAV 
+		Vector3 currentPos = transform.position;
+		currentPos.y = 0;
+		Vector3 targetPos = m_nodes[m_targetNodeIndex].position;
+		targetPos.y = 0;
+		float distance = Vector3.SqrMagnitude(currentPos - targetPos);
 
         // IF at target node
         if (distance <= 1.0f)

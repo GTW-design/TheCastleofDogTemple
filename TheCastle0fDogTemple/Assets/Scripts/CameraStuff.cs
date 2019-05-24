@@ -2,19 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Camera))]
 public class CameraStuff : MonoBehaviour {
 
 	public Transform anchorPoint;
+	public float rotateSpeed;
 
-	// Use this for initialization
-	void Start ()
-	{
-		
-	}
-	
 	// Update is called once per frame
 	void Update ()
 	{
-		
+		transform.RotateAround(anchorPoint.position, Vector3.up, rotateSpeed * Time.deltaTime);
 	}
 }
