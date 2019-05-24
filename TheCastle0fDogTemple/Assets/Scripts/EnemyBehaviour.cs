@@ -8,6 +8,7 @@ public class EnemyBehaviour : MonoBehaviour
 {
 	public int m_health;
     public int m_addScore;
+    public AudioSource[] m_enemyhurt;
 
 	[Header("Nav")]
 	public Transform[] m_nodes = new Transform[2];
@@ -54,5 +55,6 @@ public class EnemyBehaviour : MonoBehaviour
     public void TakeDamage(int damage)
     {
         m_health -= damage;
+        m_enemyhurt[Random.Range(0, m_enemyhurt.Length)].Play();
     }
 }

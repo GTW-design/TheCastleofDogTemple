@@ -16,6 +16,7 @@ public class Hud : MonoBehaviour
     public int m_negate;
     public GameObject winScreen;
     public GameObject loseScreen;
+    public AudioSource m_backgroundmusic;
 
 
 
@@ -24,6 +25,8 @@ public class Hud : MonoBehaviour
 	void Start ()
     {
         Timer = 0;
+        
+        m_backgroundmusic.Play();
 	}
 	
 	// Update is called once per frame

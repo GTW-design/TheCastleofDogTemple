@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 [RequireComponent(typeof(CharacterController))]
 public class Player : MonoBehaviour
@@ -20,6 +21,7 @@ public class Player : MonoBehaviour
 
 	public KeyCode m_attack = KeyCode.Return;
 	public int m_attackButton = 0;
+    public AudioSource m_punchSound;
 
 	public bool m_invert = true;
 
@@ -122,6 +124,7 @@ public class Player : MonoBehaviour
 		if (Input.GetKeyDown(m_attack) || Input.GetMouseButtonDown(m_attackButton))
 		{
 			RaycastHit rayHit;
+            m_punchSound.Play();
 
 			if (Physics.Raycast(m_attackOrigin.position, transform.forward, out rayHit, 5.0f))
 			{
