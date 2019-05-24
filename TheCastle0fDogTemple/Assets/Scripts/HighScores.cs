@@ -30,6 +30,8 @@ public class HighScores : MonoBehaviour {
 			Score score;
 			score.name = PlayerPrefs.GetString(string.Concat("ScoreName ", i.ToString()));
 			score.value = PlayerPrefs.GetFloat(string.Concat("ScoreValue ", i.ToString()));
+
+            m_scores.Add(score);
 		}
 
 		SortScores();
@@ -77,7 +79,7 @@ public class HighScores : MonoBehaviour {
 	{
 		m_scores.Sort(delegate (Score lhs, Score rhs)
 		{
-			return lhs.value.CompareTo(rhs.value);
+			return rhs.value.CompareTo(lhs.value);
 		});
 	}
 

@@ -18,6 +18,8 @@ public class EnemyBehaviour : MonoBehaviour
     private Hud m_hud;
 
 	private Animator m_animator;
+
+    private bool dead = false;
     
 
 	// Use this for initialization
@@ -28,18 +30,27 @@ public class EnemyBehaviour : MonoBehaviour
 
         m_navAgent.SetDestination(m_nodes[m_targetNodeIndex].position);
 
-		m_animator = GetComponent<Animator>();
+		m_animator = GetComponentInChildren<Animator>();
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
+        if (dead)
+            return;
+
         if (m_health <= 0)
         {
+            dead = true;
             m_hud.AddScore(m_addScore);
 			m_animator.ResetTrigger("isWalking");
 			m_animator.SetTrigger("isEnemyDead");
-            Destroy(gameObject);
+            Destroy(gameObject, 2.5f);
+            Collider collider = GetComponent<Collider>();
+            collider.enabled = false;
+
+            m_navAgent.isStopped = true;
+            return;
         }
 
 		// NAV 
@@ -49,10 +60,10 @@ public class EnemyBehaviour : MonoBehaviour
 		targetPos.y = 0;
 		float distance = Vector3.SqrMagnitude(currentPos - targetPos);
 
-		m_animator.SetTrigger("isWalking");
+        m_animator.SetTrigger("isWalking");
 
-		// IF at target node
-		if (distance <= 1.0f)
+        // IF at target node
+        if (distance <= 1.0f)
         {
             m_targetNodeIndex = 1 - m_targetNodeIndex;
             m_navAgent.SetDestination(m_nodes[m_targetNodeIndex].position);

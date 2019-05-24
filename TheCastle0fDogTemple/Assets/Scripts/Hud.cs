@@ -103,7 +103,7 @@ public class Hud : MonoBehaviour
 	}
 
     // resuming the game 
-    void Resume()
+    public void Resume()
     {
         m_PauseMenu.SetActive(false);
         m_Hud.SetActive(true);
@@ -131,7 +131,7 @@ public class Hud : MonoBehaviour
         }
     }
 
-	public void AddScore()
+	public void AddHighScore()
 	{
 		m_InputGroup.SetActive(false);
 

@@ -48,6 +48,7 @@ public class Player : MonoBehaviour
 
 	private Animator m_animator;
 
+
 	// Use this for initialization
 	void Start()
 	{
@@ -131,6 +132,7 @@ public class Player : MonoBehaviour
 
 		m_charControl.SimpleMove(transform.forward * m_movement * m_moveMulti / slowDown);
 
+		m_animator.ResetTrigger("isPunching");
 
 		// ATTACK STUFF
 		if (Input.GetKeyDown(m_attack) || Input.GetMouseButtonDown(m_attackButton))
@@ -138,7 +140,6 @@ public class Player : MonoBehaviour
 			RaycastHit rayHit;
             m_punchSound.Play();
 			m_animator.SetTrigger("isPunching");
-			m_animator.ResetTrigger("isPunching");
 
 			if (Physics.Raycast(m_attackOrigin.position, transform.forward, out rayHit, 5.0f))
 			{

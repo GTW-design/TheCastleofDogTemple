@@ -14,12 +14,13 @@ public class Menu : MonoBehaviour
 
     public void Exit()
     {
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene(0);
     }
 
     public void Quit()
     {
-        Quit();
+        Application.Quit();
     }
 
     

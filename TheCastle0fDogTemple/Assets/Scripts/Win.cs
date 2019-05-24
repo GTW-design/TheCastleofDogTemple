@@ -6,8 +6,13 @@ public class Win : MonoBehaviour
 {
 
     private Hud hud;
+    private GameObject player;
 
-    public GameObject player;
+    private void Start()
+    {
+        hud = FindObjectOfType<Hud>();
+        player = FindObjectOfType<Player>().gameObject;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
