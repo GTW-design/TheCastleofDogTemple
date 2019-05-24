@@ -46,12 +46,13 @@ public class Player : MonoBehaviour
 	public float m_attackRange;
 	public int m_attackDamage;
 
-
+	private Animator m_animator;
 
 	// Use this for initialization
 	void Start()
 	{
 		m_charControl = gameObject.GetComponent<CharacterController>();
+		m_animator = GetComponentInChildren<Animator>();
 	}
 
 	// Update is called once per frame
@@ -92,6 +93,17 @@ public class Player : MonoBehaviour
 		}
 		m_fwd = Mathf.Clamp(m_fwd, -1, 1);
 
+		if (Mathf.Abs(m_fwd) > 0)
+		{
+			m_animator.ResetTrigger("isIdle");
+			m_animator.SetTrigger("isMoving");
+		}
+		else
+		{
+			m_animator.ResetTrigger("isMoving");
+			m_animator.SetTrigger("isIdle");
+		}
+
 		// ROTATE
 
 		// Reverse rotation if going backwards
@@ -125,6 +137,8 @@ public class Player : MonoBehaviour
 		{
 			RaycastHit rayHit;
             m_punchSound.Play();
+			m_animator.SetTrigger("isPunching");
+			m_animator.ResetTrigger("isPunching");
 
 			if (Physics.Raycast(m_attackOrigin.position, transform.forward, out rayHit, 5.0f))
 			{
