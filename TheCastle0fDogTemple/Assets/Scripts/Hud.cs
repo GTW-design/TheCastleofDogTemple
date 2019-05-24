@@ -37,6 +37,8 @@ public class Hud : MonoBehaviour
         }
         m_score.text = m_scoreCount.ToString();
 
+
+        // Pressing Escape Opens up a pause menu
         if (Input.GetKeyDown(KeyCode.Escape) && win == false && lose == false)
         {
             if (m_PauseMenu.activeSelf != true)
@@ -52,13 +54,19 @@ public class Hud : MonoBehaviour
                 Time.timeScale = 1;
             }
         }
-
+        // setting lose to true 
+        if (m_scoreCount <= 0)
+        {
+            lose = true;
+        }
+        // checking to see if you win
         if (win == true)
         {
             m_Hud.SetActive(false);
             winScreen.SetActive(true);
             Time.timeScale = 0;
         }
+        // checking to see if you lose 
         if (lose == true)
         {
             m_Hud.SetActive(false);
@@ -67,7 +75,7 @@ public class Hud : MonoBehaviour
         }
 	}
 
-
+    // resuming the game 
     void Resume()
     {
         m_PauseMenu.SetActive(false);
@@ -75,16 +83,19 @@ public class Hud : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    // adding score to your total score
     public void AddScore(int score)
     {
         m_scoreCount += score;
     }
 
+    // taking score off your total score 
     public void DmgScore(int score)
     {
         m_scoreCount -= score;
     }
 
+    // a public funtaion to be told if win is true or not
     public void doesWin(bool yes)
     {
         if (yes == true)
