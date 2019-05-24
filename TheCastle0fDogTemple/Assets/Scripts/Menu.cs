@@ -7,17 +7,17 @@ public class Menu : MonoBehaviour
 {
 
 
-    void Play()
+    public void Play()
     {
         SceneManager.LoadScene(1);
     }
 
-    void Exit()
+    public void Exit()
     {
         SceneManager.LoadScene(0);
     }
 
-    void Quit()
+    public void Quit()
     {
         Quit();
     }
