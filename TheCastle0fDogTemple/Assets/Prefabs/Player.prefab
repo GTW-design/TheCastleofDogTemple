@@ -174,7 +174,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4950723927783038}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: AttackOrigin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1055,7 +1055,7 @@ MonoBehaviour:
   m_maxRot: 3
   m_enemyTag: Enemy
   m_attackOrigin: {fileID: 4950723927783038}
-  m_attackRange: 2
+  m_attackRange: 1
   m_attackDamage: 30
 --- !u!136 &136167260284251484
 CapsuleCollider:

@@ -21,7 +21,10 @@ public class EnemyBehaviour : MonoBehaviour
 	void Start () 
     {
         m_hud = FindObjectOfType<Hud>();
-	}
+        m_navAgent = GetComponent<NavMeshAgent>();
+
+        m_navAgent.SetDestination(m_nodes[m_targetNodeIndex].position);
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -33,19 +36,21 @@ public class EnemyBehaviour : MonoBehaviour
         }
 
         // NAV
-        if (false)
-        {
-            Vector3 currentPos = transform.position;
-            Vector3 targetPos = m_nodes[m_targetNodeIndex].position;
-            float distance = Vector3.SqrMagnitude(currentPos - targetPos);
+        
+       
+        Vector3 currentPos = transform.position;
+        currentPos.y = 0;
+        Vector3 targetPos = m_nodes[m_targetNodeIndex].position;
+        targetPos.y = 0;
+        float distance = Vector3.SqrMagnitude(currentPos - targetPos);
 
-            // IF at target node
-            if (distance <= 1.0f)
-            {
-                m_targetNodeIndex = 1 - m_targetNodeIndex;
-                m_navAgent.SetDestination(targetPos);
-            }
+        // IF at target node
+        if (distance <= 1.0f)
+        {
+            m_targetNodeIndex = 1 - m_targetNodeIndex;
+            m_navAgent.SetDestination(m_nodes[m_targetNodeIndex].position);
         }
+       
 	}
     
     public void TakeDamage(int damage)
